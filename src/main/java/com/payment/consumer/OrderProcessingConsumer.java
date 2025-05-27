@@ -29,7 +29,7 @@ public class OrderProcessingConsumer {
     @Autowired
     private PaymentRepository repository;
 
-    @RetryableTopic(attempts ="3", backoff=@Backoff(delay = 3000,multiplier = 1.5,maxDelay = 15000),exclude = {NullPointerException.class})
+    @RetryableTopic(attempts ="3", backoff=@Backoff(delay = 300,multiplier = 1.5,maxDelay = 1500),exclude = {NullPointerException.class})
     @KafkaListener(topics = "ORDER_PAYMENT_TOPIC")
     public void processOrder(String orderJsonString, @Header(KafkaHeaders.RECEIVED_TOPIC) String topic,@Header(KafkaHeaders.OFFSET) long offset) {
         System.out.println("Kafka listener////////////////////////////");
