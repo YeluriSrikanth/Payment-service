@@ -57,6 +57,7 @@ public class OrderProcessingConsumer {
 System.out.println("else block..........");
                     User user = restTemplate.getForObject(USER_SERVICE_URL + "/" + payment.getUserId(), User.class);
                     System.out.println("User Details-----"+user);
+                    assert user != null;
                     if (payment.getAmount() > user.getAvailableAmount()) {
                         throw new RuntimeException("Insufficient amount !");
                     } else {
@@ -76,6 +77,7 @@ System.out.println("else block..........");
     @DltHandler
     public void listenDlt(String orderJsonString, @Header(KafkaHeaders.RECEIVED_TOPIC) String topic,@Header(KafkaHeaders.OFFSET) long offset){
         System.out.println(topic+"-------------"+offset);
+        System.out.println("srikanth");
 
     }
 
